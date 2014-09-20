@@ -11,5 +11,9 @@ class SchoolDistrict
 
   store_in :collection => "school_districts"
   
+  def self.important_header_key
+    "LEAID"
+  end
+  
 end
 SchoolDistrict.create_indexes

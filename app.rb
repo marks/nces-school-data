@@ -18,5 +18,9 @@ end
 
 get '/stats.json' do
 	content_type :json
-	{:school_districts => SchoolDistrict.count}.to_json
+	{
+    :schools => School.count,
+    :school_districts => SchoolDistrict.count,
+    :school_district_finances => SchoolDistrictFinance.count
+  }.to_json
 end

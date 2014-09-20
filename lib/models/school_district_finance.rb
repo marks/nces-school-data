@@ -9,5 +9,9 @@ class SchoolDistrictFinance
 
   store_in :collection => "school_district_finances"
   
+  def self.important_header_key
+    "LEAID"
+  end
+
 end
 SchoolDistrictFinance.create_indexes

@@ -10,6 +10,10 @@ class School
   index({ "SURVYEAR" => 1, "NCESSCH" => 1, "_file" => 1 })
 
   store_in :collection => "schools"
-  
+
+  def self.important_header_key
+    "NCESSCH"
+  end
+
 end
 School.create_indexes
