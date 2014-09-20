@@ -5,7 +5,9 @@ class SchoolDistrict
 
   index({ "SURVYEAR" => 1 })
   index({ "LEAID" => 1 })
+  index({ "_file" => 1 })
   index({ "SURVYEAR" => 1, "LEAID" => 1 })
+  index({ "SURVYEAR" => 1, "LEAID" => 1, "_file" => 1 })
 
   store_in :collection => "school_districts"
   
