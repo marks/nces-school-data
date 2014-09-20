@@ -1,0 +1,4 @@
+development: &common_settings
+  mongoid_config_file: config/mongoid.yml
+production:
+  <<: *common_settings
