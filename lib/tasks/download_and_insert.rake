@@ -11,7 +11,7 @@
 namespace :download_and_insert do
 
 	task :school_districts do
-
+		puts settings.data_pages_to_scrape["school_districts"].inspect
 	end
 
 	task :school_district_finances do

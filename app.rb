@@ -1,7 +1,6 @@
 require 'bundler'
 Bundler.require
 require 'open-uri'
-require "sinatra/config_file"
 config_file './config/app.yml'
 require "sinatra/reloader" if development?
 

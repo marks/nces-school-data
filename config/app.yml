@@ -1,4 +1,16 @@
 development: &common_settings
   mongoid_config_file: config/mongoid.yml
+
+  data_pages_to_scrape:
+    school_districts:
+      data_page: http://nces.ed.gov/ccd/pubagency.asp
+      mongo_model: SchoolDistrict
+    school_district_finances: 
+      data_page: http://nces.ed.gov/ccd/f33agency.asp
+      mongo_model: SchoolDistrictFinances
+    schools: 
+      data_page: http://nces.ed.gov/ccd/pubschuniv.asp
+      mongo_model: Schools    
+
 production:
   <<: *common_settings
