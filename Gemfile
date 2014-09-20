@@ -9,7 +9,7 @@ gem 'sinatra-contrib', :require => 'sinatra/config_file'
 gem 'haml'
 gem 'rake'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
-
+gem "nokogiri"
 gem "pg"
 gem "activerecord"
 gem "sinatra-activerecord"

@@ -8,18 +8,53 @@
 # - unzip the zip file; there should be one CSV
 # - with that CSV, import it into the corresponding table
 
+require 'csv'
+
 namespace :download_and_insert do
 
-	task :school_districts do
-		puts settings.data_pages_to_scrape["school_districts"].inspect
-	end
+  task :school_districts do
+    scope = "school_districts"
+    scope_settings = settings.data_pages_to_scrape[scope]
+    puts scope_settings.inspect
+    
+    data_page_contents = RestClient.get(scope_settings["data_page"])
+    data_page = Nokogiri::XML(data_page_contents.body)
+    %x(mkdir -p tmp/#{scope})
+    # find links in the "Data Set" column for "Flat File"s
+    # links_to_zip_files = data_page.css("table.data tr td:nth-of-type(2):contains('Flat File') a").map{|e| e.attr("href")}
+    # links_to_zip_files.each do |link_to_zip|
+    #   zip_file = link_to_zip.split("/").last
+    #   puts "Downloading and then unzipping tmp/#{scope}/#{zip_file} ... "
+    #   %x(curl #{scope_settings["data_page"]}/../#{link_to_zip} -o tmp/#{scope}/#{zip_file})
+    #   %x(cd tmp/#{scope} && unzip -o #{zip_file})
+    #   %x(rm tmp/#{scope}/#{zip_file})
+    # end
+    
+    Dir["tmp/#{scope}/*.txt"].each do |file|
+      filename = file.split("/").last
+      puts "Importing #{scope} data from #{filename} ... "
+      utf8_invalid_file_contents = File.read(file)
+      ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+      valid_file_contents = ic.iconv(utf8_invalid_file_contents + ' ')[0..-2]
+      if !valid_file_contents[0,1000].match("LEAID")
+        puts "!!!! #{file} has no header row, cannot insert"
+        next
+      end
+      CSV.parse(valid_file_contents, {:col_sep => "\t", :headers => true}).each do |row|
+        attrs = row.to_hash
+        school_district_for_this_year = SchoolDistrict.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :LEAID => attrs["LEAID"], :_file => filename})
+        school_district_for_this_year.update_attributes!(attrs)
+      end
+    end
 
-	task :school_district_finances do
+  end
 
-	end
+  task :school_district_finances do
 
-	task :schools do
+  end
 
-	end
+  task :schools do
+
+  end
 
 end
