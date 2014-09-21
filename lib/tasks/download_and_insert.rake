@@ -15,6 +15,7 @@ namespace :download_and_insert do
   task :school_districts do
     scope = "school_districts"
     scope_settings = settings.data_pages_to_scrape[scope]
+    mongo_model = scope_settings["mongo_model"].constantize
     puts scope_settings.inspect
     
     data_page_contents = RestClient.get(scope_settings["data_page"])
@@ -37,13 +38,13 @@ namespace :download_and_insert do
       utf8_invalid_file_contents = File.read(file)
       ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       valid_file_contents = ic.iconv(utf8_invalid_file_contents + ' ')[0..-2]
-      if !valid_file_contents[0,1000].match(SchoolDistrict.important_header_key)
+      if !valid_file_contents[0,1000].match(mongo_model.important_header_key)
         puts "!!!! #{file} has no header row, cannot insert"
         next
       end
       CSV.parse(valid_file_contents, {:col_sep => "\t", :headers => true}).each do |row|
         attrs = row.to_hash
-        school_district_for_this_year = SchoolDistrict.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{SchoolDistrict.important_header_key}" => attrs[SchoolDistrict.important_header_key], :_file => filename})
+        school_district_for_this_year = mongo_model.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{mongo_model.important_header_key}" => attrs[mongo_model.important_header_key], :_file => filename})
         school_district_for_this_year.update_attributes!(attrs)
       end
     end
@@ -52,6 +53,7 @@ namespace :download_and_insert do
   task :school_district_finances do
     scope = "school_district_finances"
     scope_settings = settings.data_pages_to_scrape[scope]
+    mongo_model = scope_settings["mongo_model"].constantize
     puts scope_settings.inspect
     
     data_page_contents = RestClient.get(scope_settings["data_page"])
@@ -74,13 +76,13 @@ namespace :download_and_insert do
       utf8_invalid_file_contents = File.read(file)
       ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       valid_file_contents = ic.iconv(utf8_invalid_file_contents + ' ')[0..-2]
-      if !valid_file_contents[0,1000].match(SchoolDistrictFinance.important_header_key)
+      if !valid_file_contents[0,1000].match(mongo_model.important_header_key)
         puts "!!!! #{file} has no header row, cannot insert"
         next
       end
       CSV.parse(valid_file_contents, {:col_sep => "\t", :headers => true}).each do |row|
         attrs = row.to_hash
-        school_district_finance_for_this_year = SchoolDistrictFinance.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{SchoolDistrictFinance.important_header_key}" => attrs[School.important_header_key], :_file => filename})
+        school_district_finance_for_this_year = mongo_model.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{mongo_model.important_header_key}" => attrs[mongo_model.important_header_key], :_file => filename})
         school_district_finance_for_this_year.update_attributes!(attrs)
       end
     end
@@ -90,6 +92,7 @@ namespace :download_and_insert do
   task :schools do
     scope = "schools"
     scope_settings = settings.data_pages_to_scrape[scope]
+    mongo_model = scope_settings["mongo_model"].constantize
     puts scope_settings.inspect
     
     data_page_contents = RestClient.get(scope_settings["data_page"])
@@ -112,13 +115,13 @@ namespace :download_and_insert do
       utf8_invalid_file_contents = File.read(file)
       ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       valid_file_contents = ic.iconv(utf8_invalid_file_contents + ' ')[0..-2]
-      if !valid_file_contents[0,1000].match(School.important_header_key)
+      if !valid_file_contents[0,1000].match(mongo_model.important_header_key)
         puts "!!!! #{file} has no header row, cannot insert"
         next
       end
       CSV.parse(valid_file_contents, {:col_sep => "\t", :headers => true}).each do |row|
         attrs = row.to_hash
-        school_for_this_year = School.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{School.important_header_key}" => attrs[School.important_header_key], :_file => filename})
+        school_for_this_year = mongo_model.find_or_create_by({:SURVYEAR => attrs["SURVYEAR"], :"#{mongo_model.important_header_key}" => attrs[mongo_model.important_header_key], :_file => filename})
         school_for_this_year.update_attributes!(attrs)
       end
     end

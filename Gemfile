@@ -13,9 +13,4 @@ gem "nokogiri"
 gem "pg"
 gem "activerecord"
 gem "sinatra-activerecord"
-
-group :development do
-	gem 'rerun'
-	gem 'heroku'
-	gem 'iconv'
-end
+gem 'iconv'
