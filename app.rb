@@ -24,3 +24,24 @@ get '/stats.json' do
     :school_district_finances => SchoolDistrictFinance.count
   }.to_json
 end
+
+#####
+
+[School, SchoolDistrict, SchoolDistrictFinance].each do |model|
+
+  get "/#{model}/ids.json" do
+    content_type :json
+    model.all.pluck(:_id).map(&:to_s).to_json
+  end
+
+  get "/#{model}/first.json" do
+    content_type :json
+    model.first.to_json
+  end
+
+  get "/#{model}/:id.json" do
+    content_type :json
+    model.find(params[:id]).to_json
+  end
+
+end
