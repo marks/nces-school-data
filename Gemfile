@@ -6,7 +6,6 @@ gem 'json'
 gem 'mongoid'
 gem 'sinatra'
 gem 'sinatra-contrib', :require => 'sinatra/config_file'
-gem 'haml'
 gem 'rake'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem "nokogiri"
