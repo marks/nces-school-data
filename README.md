@@ -14,6 +14,7 @@ Local Quick Start
 Heroku Instructions
 -------------------
 *Under development*
+
 1. First things first, follow the 'Local Quick Start' steps
 2. Add MongoHQ add on: `heroku addons:add mongohq`
 3. Run `git commit -am "initial commit" && git push heroku master` to commit and push this code to Heroku
