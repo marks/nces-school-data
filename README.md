@@ -18,7 +18,7 @@ Heroku Instructions
 2. Add MongoHQ add on: `heroku addons:add mongohq`
 3. Run `git commit -am "initial commit" && git push heroku master` to commit and push this code to Heroku
 4. Run `bundle exec rake mongodb:push_local_to_mongohq` to upload the data you downloaded locally to the remote heroku database
-5. Run `heroku open` to open your Heroku URL.
+5. Run `heroku info` and copy and paste the `Web URL` into your web browser of choice.
 
 API endpoints
 -------------
