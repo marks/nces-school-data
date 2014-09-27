@@ -16,18 +16,18 @@ configure :production do
   set :show_exceptions, false
 end
 
+MODELS = [School, SchoolDistrict, SchoolDistrictFinance]
+
 get '/stats.json' do
 	content_type :json
-	{
-    :schools => School.count,
-    :school_districts => SchoolDistrict.count,
-    :school_district_finances => SchoolDistrictFinance.count
-  }.to_json
+  hash = {}
+  MODELS.each{|m| hash[m.to_s] = {:count => m.count}}
+  hash.to_json
 end
 
 #####
 
-[School, SchoolDistrict, SchoolDistrictFinance].each do |model|
+MODELS.each do |model|
 
   get "/#{model}/ids.json" do
     content_type :json
@@ -42,6 +42,12 @@ end
   get "/#{model}/:id.json" do
     content_type :json
     model.find(params[:id]).to_json
+  end
+
+  get "/#{model}/all.csv" do
+    content_type 'application/csv'
+    attachment "#{model}-all-#{Time.now.to_s.gsub(' ','_')}).csv"
+    model.to_csv
   end
 
 end

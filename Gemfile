@@ -14,3 +14,4 @@ gem "pg"
 gem "activerecord"
 gem "sinatra-activerecord"
 gem 'iconv'
+gem 'mongoid_to_csv'
