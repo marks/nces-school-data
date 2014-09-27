@@ -18,6 +18,10 @@ end
 
 MODELS = [School, SchoolDistrict, SchoolDistrictFinance]
 
+get '/' do
+  redirect '/stats.json'
+end
+
 get '/stats.json' do
 	content_type :json
   hash = {}

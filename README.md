@@ -1,8 +1,8 @@
 nces-data
 =========
 
-Quick Start
------------
+Local Quick Start
+-----------------
 1. Tweak variables in `config/app.yml` and `config/mongoid.yml`
 2. Run `bundle install`
 3. Run `bundle exec rake download_and_insert:schools`
@@ -10,6 +10,15 @@ Quick Start
 5. Run `bundle exec rake download_and_insert:school_district_finances`
 6. Your specificed MongoDB instance should have three collections full of your data -- one for each take task.
 7. To start the web server to access API endpoints listed below, run `foreman start web`
+
+Heroku Instructions
+-------------------
+*Under development*
+1. First things first, follow the 'Local Quick Start' steps
+2. Add MongoHQ add on: `heroku addons:add mongohq`
+3. Run `git commit -am "initial commit" && git push heroku master` to commit and push this code to Heroku
+4. Run `bundle exec rake mongodb:push_local_to_mongohq` to upload the data you downloaded locally to the remote heroku database
+5. Run `heroku open` to open your Heroku URL.
 
 API endpoints
 -------------
