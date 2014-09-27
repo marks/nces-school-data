@@ -15,7 +15,7 @@ namespace :mongodb do
     %x(mongodump -d #{db_name} -o tmp/)
 
     puts "mongorestore'ing to MongoHQ"
-    puts "  mongorestore -h #{mongohq_uri.host} --port #{mongohq_uri.port} -d #{mongohq_db} -u #{mongohq_uri.user} -p #{mongohq_uri.password} --drop tmp/#{db_name}"
+    puts "  mongorestore -h #{mongohq_uri.host} --port #{mongohq_uri.port} -d #{mongohq_db} -u #{mongohq_uri.user} -p PASSWORD_REMOVED --drop tmp/#{db_name}"
     %x(mongorestore -h #{mongohq_uri.host} --port #{mongohq_uri.port} -d #{mongohq_db} -u #{mongohq_uri.user} -p #{mongohq_uri.password} --drop tmp/#{db_name})
   end
 end
