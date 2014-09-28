@@ -7,10 +7,10 @@ development: &common_settings
       mongo_model: SchoolDistrict
     school_district_finances: 
       data_page: http://nces.ed.gov/ccd/f33agency.asp
-      mongo_model: SchoolDistrictFinances
+      mongo_model: SchoolDistrictFinance
     schools: 
       data_page: http://nces.ed.gov/ccd/pubschuniv.asp
-      mongo_model: Schools    
+      mongo_model: School
 
 production:
   <<: *common_settings
