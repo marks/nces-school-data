@@ -101,6 +101,7 @@ namespace :download_and_insert do
     # find links in the "Data Set" column for "Flat File"s -- currently we only grab the most recent.
     # Remove ":nth-of-type(3)" to grab ALL years' flat files
     links_to_zip_files = data_page.css("table.data tr:nth-of-type(3) td:nth-of-type(2):contains('Flat File') a").map{|e| e.attr("href")}
+    links_to_zip_files << "Data/zip/sc111a_supp_txt.zip" 
     links_to_zip_files.each do |link_to_zip|
       zip_file = link_to_zip.split("/").last
       puts "Downloading and then unzipping tmp/#{scope}/#{zip_file} ... "
