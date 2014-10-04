@@ -28,6 +28,8 @@ For each model (currently `School`, `SchoolDistrict`, `SchoolDistrictFinance`) t
 - `/MODEL/ids.json` returns a JSON array of all document IDs
 - `/MODEL/first.json` returns a JSON associative array of the first document's data
 - `/MODEL/ID.json` returns a JSON associative array of the first document's data
+- `/MODEL/by_primary_key.csv?id=PRIMARY_KEY_ID` returns an array of JSON associative arrays of the matches.
+ - for example, `/School/by_primary_key.json?id=010000201670` does a School.where(:NCESSCH => "010000201670") query. The primary key is defined by the model's `important_header_key` method.
 - `/MODEL/all.csv` sends a CSV file to the client with all documents' data
 
 Notes

@@ -43,6 +43,11 @@ MODELS.each do |model|
     model.first.to_json
   end
 
+  get "/#{model}/by_primary_key.json" do
+    content_type :json
+    model.where(:"#{model.important_header_key}" => params[:id]).to_a.to_json
+  end
+
   get "/#{model}/:id.json" do
     content_type :json
     model.find(params[:id]).to_json
